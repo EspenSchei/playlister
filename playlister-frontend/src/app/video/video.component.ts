@@ -14,6 +14,8 @@ export class VideoComponent implements OnInit {
   currentVideo = 0;
   videoIds = null;
   videos = null;
+  name = null;
+  description = '';
 
   constructor(private _sanitizer: DomSanitizer, private playlistService: PlaylistService) {
   }
@@ -44,8 +46,10 @@ export class VideoComponent implements OnInit {
     const user = this.playlist.split('/')[4];
     const playlistId = this.playlist.split('/')[6].split('?')[0];
     this.playlistService.getPlaylist(user, playlistId)
-      .subscribe(videos => {
-        this.videos = videos;
+      .subscribe(playlist => {
+        this.name = playlist.name;
+        this.description = playlist.description;
+        this.videos = playlist.videos;
         this.videoIds = this.videos.map(video => video.youtubeId);
       });
   }

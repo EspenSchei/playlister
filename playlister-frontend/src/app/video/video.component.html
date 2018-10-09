@@ -13,8 +13,10 @@
     <button (click)="previousVideo()" style="margin-left: 350px">Previous</button>
     <button (click)="nextVideo()">Next</button>
 
-    <h2>Playlist</h2>
-    <ol>
+    <h2>{{ name }}</h2>
+    <p><i>{{ description }}</i></p>
+
+    <ol style="margin-top: 20px">
       <li *ngFor="let video of videos; let i = index">
         <p *ngIf="i === currentVideo"><strong>{{video.name}} - {{video.artist}}</strong></p>
         <p *ngIf="i !== currentVideo">{{video.name}} - {{video.artist}}</p>
