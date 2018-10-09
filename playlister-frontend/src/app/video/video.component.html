@@ -1,0 +1,24 @@
+<div >
+  <input class="w3-input w3-padding-16" type="text" [(ngModel)]="playlist" (change)="getVideos()" size="100">
+  <div *ngIf="videos != null">
+    <iframe class="e2e-iframe-trusted-src"
+            [src]="getVideo()"
+            width="840"
+            height="472"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+            style="margin-top: 20px">
+    </iframe>
+    <button (click)="previousVideo()" style="margin-left: 350px">Previous</button>
+    <button (click)="nextVideo()">Next</button>
+
+    <h2>Playlist</h2>
+    <ol>
+      <li *ngFor="let video of videos; let i = index">
+        <p *ngIf="i === currentVideo"><strong>{{video.name}} - {{video.artist}}</strong></p>
+        <p *ngIf="i !== currentVideo">{{video.name}} - {{video.artist}}</p>
+      </li>
+    </ol>
+  </div>
+</div>
