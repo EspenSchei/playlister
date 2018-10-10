@@ -12,7 +12,6 @@ export class VideoComponent implements OnInit {
   playlist = 'https://open.spotify.com/user/spotifycharts/playlist/37i9dQZEVXbMDoHDwVN2tF?si=nb1Mt6RLR7yOlfzvDb9LjQ';
 
   currentVideo = 0;
-  videoIds = null;
   videos = null;
   name = null;
   description = '';
@@ -21,13 +20,13 @@ export class VideoComponent implements OnInit {
   }
 
   getVideo() {
-    if (this.videoIds != null) {
-      return this._sanitizer.bypassSecurityTrustResourceUrl(this.baseUrl + this.videoIds[this.currentVideo]);
+    if (this.videos != null) {
+      return this._sanitizer.bypassSecurityTrustResourceUrl(this.baseUrl + this.videos[this.currentVideo].youtubeId);
     }
   }
 
   nextVideo() {
-    if (this.currentVideo === this.videoIds.length) {
+    if (this.currentVideo === this.videos.length - 1) {
       this.currentVideo = 0;
     } else {
       this.currentVideo++;
@@ -50,7 +49,6 @@ export class VideoComponent implements OnInit {
         this.name = playlist.name;
         this.description = playlist.description;
         this.videos = playlist.videos;
-        this.videoIds = this.videos.map(video => video.youtubeId);
       });
   }
 

@@ -10,7 +10,18 @@ export class PlaylistService {
   }
 
   getPlaylist(user: string, playlistId: string) {
-    return this.http.get('http://localhost:8080/playlists/custom?skipYoutube=false&limit=5&user=' + user + '&playlistId=' + playlistId);
+    const params = '?skipYoutube=false&limit=5&user=' + user + '&playlistId=' + playlistId;
+    return this.http.get<Playlist>('http://localhost:8080/playlists/custom' + params);
   }
+}
+
+interface Playlist {
+  videos: {
+    artist: string,
+    name: string,
+    youtubeId: string
+  };
+  name: string;
+  description: string;
 }
 
