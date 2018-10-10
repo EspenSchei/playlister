@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,6 +47,7 @@ public class PlaylistController {
   }
 
   @CrossOrigin
+  @Cacheable("customPlaylist")
   @RequestMapping("/custom")
   public PlaylistWrapper getCustomPlaylist(
       @RequestParam("user") String user,
@@ -59,6 +61,16 @@ public class PlaylistController {
         .description(playlist.getDescription())
         .videos(extractVideos(playlist, limit, skipYoutube))
         .build();
+  }
+
+  @CrossOrigin
+  @Cacheable("videoId")
+  @RequestMapping("/youtube/find-video-id")
+  public String findYoutubeVideoId(
+      @RequestParam("artists") String artists,
+      @RequestParam("name") String name
+  ) {
+    return youTubeService.findYoutubeId(artists, name);
   }
 
   public List<Video> extractVideos(Playlist playlist, int limit, boolean skipYouTube) {
