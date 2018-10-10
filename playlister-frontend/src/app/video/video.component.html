@@ -1,4 +1,4 @@
-<div >
+<div>
   <input class="w3-input w3-padding-16" type="text" [(ngModel)]="playlist" (change)="getVideos()" size="100">
   <div *ngIf="videos != null">
     <iframe class="e2e-iframe-trusted-src"
@@ -22,5 +22,8 @@
         <p *ngIf="i !== currentVideo">{{video.name}} - {{video.artist}}</p>
       </li>
     </ol>
+  </div>
+  <div *ngIf="videos == null" align="center">
+    <img src="assets/images/loader.svg">
   </div>
 </div>
