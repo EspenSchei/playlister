@@ -47,7 +47,6 @@ public class PlaylistController {
   }
 
   @CrossOrigin
-  @Cacheable("customPlaylist")
   @RequestMapping("/custom")
   public PlaylistWrapper getCustomPlaylist(
       @RequestParam("user") String user,
@@ -64,7 +63,6 @@ public class PlaylistController {
   }
 
   @CrossOrigin
-  @Cacheable("videoId")
   @RequestMapping("/youtube/find-video-id")
   public String findYoutubeVideoId(
       @RequestParam("artists") String artists,
