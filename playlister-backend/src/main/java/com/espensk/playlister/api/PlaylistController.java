@@ -2,11 +2,11 @@ package com.espensk.playlister.api;
 
 import static java.util.stream.Collectors.toList;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,8 +18,8 @@ import com.espensk.playlister.models.PlaylistWrapper;
 import com.espensk.playlister.models.Video;
 import com.espensk.playlister.services.SpotifyService;
 import com.espensk.playlister.services.YouTubeService;
-import com.wrapper.spotify.models.Playlist;
-import com.wrapper.spotify.models.SimpleArtist;
+import com.wrapper.spotify.model_objects.specification.ArtistSimplified;
+import com.wrapper.spotify.model_objects.specification.Playlist;
 
 @RestController
 @RequestMapping("/playlists")
@@ -72,13 +72,12 @@ public class PlaylistController {
   }
 
   public List<Video> extractVideos(Playlist playlist, int limit, boolean skipYouTube) {
-    return playlist.getTracks().getItems().stream()
+    return Arrays.stream(playlist.getTracks().getItems())
         .limit(limit)
         .map(track -> {
           final String name = track.getTrack().getName();
-          final String artists = track.getTrack().getArtists()
-              .stream()
-              .map(SimpleArtist::getName)
+          final String artists = Arrays.stream(track.getTrack().getArtists())
+              .map(ArtistSimplified::getName)
               .collect(Collectors.joining(", "));
           return ImmutableVideo.builder()
               .name(name)
