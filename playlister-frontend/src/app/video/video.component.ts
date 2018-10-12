@@ -43,6 +43,7 @@ export class VideoComponent implements OnInit {
 
   getVideos() {
     this.videos = null;
+    this.currentVideo = 0;
     const user = this.playlist.split('/')[4];
     const playlistId = this.playlist.split('/')[6].split('?')[0];
     this.playlistService.getPlaylist(user, playlistId)
