@@ -31,6 +31,8 @@ public class YouTubeService {
       search.setType("video");
       search.setMaxResults(1L);
       search.setFields("items(id/videoId)");
+      search.setVideoEmbeddable("true");
+      search.setOrder("viewCount");
 
       SearchListResponse response = search.execute();
 
