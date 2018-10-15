@@ -21,9 +21,9 @@ export class VideoComponent implements OnInit {
   constructor(private _sanitizer: DomSanitizer, private playlistService: PlaylistService) {
   }
 
-  // Play next automatically
   onStateChange(event) {
-    if (event.data === 0) {
+    if (event.data === YT.PlayerState.ENDED) {
+      this.nextVideo();
       this.player.loadVideoById(this.id);
     }
   }

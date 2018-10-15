@@ -1,7 +1,7 @@
 <div xmlns="http://www.w3.org/1999/html">
   <input class="w3-input w3-padding-16" type="text" [(ngModel)]="playlist" (change)="loadVideos()" size="100">
   <div *ngIf="videos != null">
-    <div style="margin-top: 20px; margin-bottom: 20px;">
+    <div id="player">
       <youtube-player
         [videoId]="id"
         (ready)="initPlayer($event)"
@@ -16,7 +16,7 @@
     <h2>{{ name }}</h2>
     <p><i>{{ description }}</i></p>
 
-    <ol style="margin-top: 20px">
+    <ol>
       <li *ngFor="let video of videos; let i = index">
         <a>
         <p *ngIf="i === currentVideo"><strong>{{video.name}} - {{video.artist}}</strong></p>
