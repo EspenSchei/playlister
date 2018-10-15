@@ -1,15 +1,15 @@
-<div>
-  <input class="w3-input w3-padding-16" type="text" [(ngModel)]="playlist" (change)="getVideos()" size="100">
+<div xmlns="http://www.w3.org/1999/html">
+  <input class="w3-input w3-padding-16" type="text" [(ngModel)]="playlist" (change)="loadVideos()" size="100">
   <div *ngIf="videos != null">
-    <iframe class="e2e-iframe-trusted-src"
-            [src]="getVideo()"
-            width="840"
-            height="472"
-            frameborder="0"
-            allow="autoplay; encrypted-media"
-            allowfullscreen
-            style="margin-top: 20px">
-    </iframe>
+    <div style="margin-top: 20px; margin-bottom: 20px;">
+      <youtube-player
+        [videoId]="id"
+        (ready)="initPlayer($event)"
+        (change)="onStateChange($event)"
+        width="840"
+        height="472">
+      </youtube-player>
+    </div>
     <button (click)="previousVideo()" style="margin-left: 350px">Previous</button>
     <button (click)="nextVideo()">Next</button>
 
@@ -18,8 +18,12 @@
 
     <ol style="margin-top: 20px">
       <li *ngFor="let video of videos; let i = index">
+        <a>
         <p *ngIf="i === currentVideo"><strong>{{video.name}} - {{video.artist}}</strong></p>
-        <p *ngIf="i !== currentVideo">{{video.name}} - {{video.artist}}</p>
+        <div (click)="playSelected(video)">
+          <p *ngIf="i !== currentVideo">{{video.name}} - {{video.artist}}</p>
+        </div>
+        </a>
       </li>
     </ol>
   </div>
@@ -27,3 +31,4 @@
     <img src="assets/images/loader.svg">
   </div>
 </div>
+

@@ -14,10 +14,9 @@ import com.google.api.services.youtube.model.SearchListResponse;
 public class YouTubeService {
 
   private static PropertiesLoader propertiesLoader = new PropertiesLoader();
-  private static YouTube youTube;
 
   public String findYoutubeId(String artist, String name) {
-    youTube = new YouTube.Builder(
+    YouTube youTube = new YouTube.Builder(
         new NetHttpTransport(),
         new JacksonFactory(),
         httpRequest -> {
