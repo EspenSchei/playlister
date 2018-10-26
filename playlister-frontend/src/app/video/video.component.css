@@ -27,3 +27,13 @@ ol li a:hover, ul li a:focus {
 .w3-input {
   width: 840px;
 }
+
+.playlist-form {
+  min-width: 150px;
+  max-width: 840px;
+  width: 100%;
+}
+
+.playlist-full-width {
+  width: 100%;
+}

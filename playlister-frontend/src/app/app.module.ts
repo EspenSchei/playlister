@@ -4,8 +4,10 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {VideoComponent} from './video/video.component';
 import {HttpClientModule} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {YoutubePlayerModule} from 'ngx-youtube-player';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatInputModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,10 @@ import {YoutubePlayerModule} from 'ngx-youtube-player';
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    YoutubePlayerModule
+    YoutubePlayerModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

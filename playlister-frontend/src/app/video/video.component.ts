@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
 import {PlaylistService} from '../playlist.service';
+import {FormControl, Validators} from '@angular/forms';
+import {PlaylistValidator} from '../validators/PlaylistValidator';
 
 @Component({
   selector: 'app-video',
@@ -8,6 +9,10 @@ import {PlaylistService} from '../playlist.service';
   styleUrls: ['./video.component.css']
 })
 export class VideoComponent implements OnInit {
+
+  constructor(private playlistService: PlaylistService) {
+  }
+
   private player: YT.Player;
   private currentVideo = 0;
   private ids = null;
@@ -18,8 +23,10 @@ export class VideoComponent implements OnInit {
   name = null;
   description = '';
 
-  constructor(private _sanitizer: DomSanitizer, private playlistService: PlaylistService) {
-  }
+  playlistFormControl = new FormControl('', [
+    Validators.required,
+    PlaylistValidator.validate
+  ]);
 
   onStateChange(event) {
     if (event.data === YT.PlayerState.ENDED) {

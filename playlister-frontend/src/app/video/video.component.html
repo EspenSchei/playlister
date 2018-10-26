@@ -1,5 +1,22 @@
-<div xmlns="http://www.w3.org/1999/html">
-  <input class="w3-input w3-padding-16" type="text" [(ngModel)]="playlist" (change)="loadVideos()" size="100">
+<div>
+  <form class="playlist-form">
+    <mat-form-field class="playlist-full-width">
+      <input matInput
+             [value]="playlist"
+             [(ngModel)]="playlist"
+             [formControl]="playlistFormControl"
+             (change)="loadVideos()"
+      >
+      <mat-hint>Spotify playlist link</mat-hint>
+      <mat-error *ngIf="playlistFormControl.hasError('url')">
+        Please enter a <strong>valid</strong> Spotify playlist link
+      </mat-error>
+      <mat-error *ngIf="playlistFormControl.hasError('required')">
+        A Spotify URL is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </form>
+
   <div *ngIf="videos != null">
     <div id="player">
       <youtube-player
@@ -19,10 +36,10 @@
     <ol>
       <li *ngFor="let video of videos; let i = index">
         <a>
-        <p *ngIf="i === currentVideo"><strong>{{video.name}} - {{video.artist}}</strong></p>
-        <div (click)="playSelected(video)">
-          <p *ngIf="i !== currentVideo">{{video.name}} - {{video.artist}}</p>
-        </div>
+          <p *ngIf="i === currentVideo"><strong>{{video.name}} - {{video.artist}}</strong></p>
+          <div (click)="playSelected(video)">
+            <p *ngIf="i !== currentVideo">{{video.name}} - {{video.artist}}</p>
+          </div>
         </a>
       </li>
     </ol>
