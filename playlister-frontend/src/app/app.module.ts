@@ -7,7 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {YoutubePlayerModule} from 'ngx-youtube-player';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatInputModule} from '@angular/material';
+import {MatInputModule, MatButtonModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,8 @@ import {MatInputModule} from '@angular/material';
     YoutubePlayerModule,
     BrowserAnimationsModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

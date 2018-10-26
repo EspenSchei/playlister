@@ -5,8 +5,7 @@
              [value]="playlist"
              [(ngModel)]="playlist"
              [formControl]="playlistFormControl"
-             (change)="loadVideos()"
-      >
+             (change)="loadVideos()">
       <mat-hint>Spotify playlist link</mat-hint>
       <mat-error *ngIf="playlistFormControl.hasError('url')">
         Please enter a <strong>valid</strong> Spotify playlist link
@@ -27,8 +26,8 @@
         height="472">
       </youtube-player>
     </div>
-    <button (click)="previousVideo()" style="margin-left: 350px">Previous</button>
-    <button (click)="nextVideo()">Next</button>
+    <button mat-stroked-button (click)="previousVideo()" style="margin-left: 330px">Previous</button>
+    <button mat-stroked-button (click)="nextVideo()">Next</button>
 
     <h2>{{ name }}</h2>
     <p><i>{{ description }}</i></p>

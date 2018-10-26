@@ -1,9 +1,10 @@
 body, h1, h2, h3, h4, h5, h6 {
-  font-family: "Montserrat", sans-serif
+  font-family: "Montserrat", sans-serif;
+  color: cornflowerblue;
 }
 
 #main {
-  margin-left: 120px
+  margin-left: 120px;
 }
 
 ol {
@@ -16,7 +17,7 @@ ol li a {
 }
 
 ol li a:hover, ul li a:focus {
-  color: darkblue;
+  color: #222222;
   font-weight: bold;
 }
 
@@ -36,4 +37,8 @@ ol li a:hover, ul li a:focus {
 
 .playlist-full-width {
   width: 100%;
+}
+
+button {
+  width: 100px;
 }
