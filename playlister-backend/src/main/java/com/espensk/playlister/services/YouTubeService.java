@@ -32,6 +32,7 @@ public class YouTubeService {
       search.setFields("items(id/videoId)");
       search.setVideoEmbeddable("true");
       search.setOrder("viewCount");
+      search.setVideoSyndicated("true");
 
       SearchListResponse response = search.execute();
 
