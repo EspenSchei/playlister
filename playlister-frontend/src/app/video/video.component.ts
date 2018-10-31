@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {PlaylistService} from '../playlist.service';
+import {PlaylistService, Video} from '../playlist.service';
 import {FormControl, Validators} from '@angular/forms';
 import {PlaylistValidator} from '../validators/PlaylistValidator';
 
@@ -15,11 +15,10 @@ export class VideoComponent implements OnInit {
 
   private player: YT.Player;
   private currentVideo = 0;
-  private ids = null;
+  private initialId = null;
 
   playlist = 'https://open.spotify.com/user/spotifycharts/playlist/37i9dQZEVXbMDoHDwVN2tF?si=nb1Mt6RLR7yOlfzvDb9LjQ';
   videos = null;
-  id = null;
   name = null;
   description = '';
 
@@ -31,39 +30,35 @@ export class VideoComponent implements OnInit {
   onStateChange(event) {
     if (event.data === YT.PlayerState.ENDED) {
       this.nextVideo();
-      this.player.loadVideoById(this.id);
     }
   }
 
-  initPlayer(event) {
+  async initPlayer(event) {
     this.player = event;
-    this.player.playVideo();
+    this.player.loadVideoById(await this.getVideoId(this.videos[0]));
   }
 
-  nextVideo() {
+  async nextVideo() {
     if (this.currentVideo === this.videos.length - 1) {
-      this.id = this.ids[this.currentVideo = 0];
+      this.player.loadVideoById(this.initialId);
     } else {
-      this.id = this.ids[++this.currentVideo];
+      const next = this.videos[++this.currentVideo];
+      this.player.loadVideoById(await this.getVideoId(next));
     }
-    this.player.loadVideoById(this.id);
   }
 
-  previousVideo() {
+  async previousVideo() {
     if (this.currentVideo === 0) {
-      this.id = this.ids[this.currentVideo = 0];
+      this.player.loadVideoById(this.initialId);
     } else {
-      this.id = this.ids[--this.currentVideo];
+      const previous = this.videos[--this.currentVideo];
+      this.player.loadVideoById(await this.getVideoId(previous));
     }
-    this.player.loadVideoById(this.id);
   }
 
-  playSelected(video) {
-    this.player.loadVideoById(this.id = video.youtubeId);
-    const self = this;
-    this.currentVideo = this.ids.findIndex(function (videoId) {
-      return videoId === self.id;
-    });
+  async playSelected(video) {
+    this.player.loadVideoById(await this.getVideoId(video));
+    this.currentVideo = this.videos.findIndex(v => v.name === video.name);
   }
 
   loadVideos() {
@@ -76,9 +71,11 @@ export class VideoComponent implements OnInit {
         this.name = playlist.name;
         this.description = playlist.description;
         this.videos = playlist.videos;
-        this.ids = this.videos.map(v => v.youtubeId);
-        this.id = this.ids[0];
       });
+  }
+
+  async getVideoId(video: Video) {
+    return await this.playlistService.getYoutubeId(video);
   }
 
   ngOnInit() {
