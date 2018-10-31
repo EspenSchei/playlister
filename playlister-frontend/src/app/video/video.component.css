@@ -42,3 +42,9 @@ ol li a:hover, ul li a:focus {
 button {
   width: 100px;
 }
+
+.scrollable-list {
+  max-height: 250px;
+  flex-grow: 1;
+  overflow: auto;
+}

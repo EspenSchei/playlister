@@ -35,12 +35,14 @@ export class VideoComponent implements OnInit {
 
   async initPlayer(event) {
     this.player = event;
-    this.player.loadVideoById(await this.getVideoId(this.videos[0]));
+    this.initialId = await this.getVideoId(this.videos[0]);
+    this.player.loadVideoById(this.initialId);
   }
 
   async nextVideo() {
     if (this.currentVideo === this.videos.length - 1) {
       this.player.loadVideoById(this.initialId);
+      this.currentVideo = 0;
     } else {
       const next = this.videos[++this.currentVideo];
       this.player.loadVideoById(await this.getVideoId(next));
@@ -50,6 +52,7 @@ export class VideoComponent implements OnInit {
   async previousVideo() {
     if (this.currentVideo === 0) {
       this.player.loadVideoById(this.initialId);
+      this.currentVideo = 0;
     } else {
       const previous = this.videos[--this.currentVideo];
       this.player.loadVideoById(await this.getVideoId(previous));

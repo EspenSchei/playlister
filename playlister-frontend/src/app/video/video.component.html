@@ -32,7 +32,7 @@
     <h2>{{ name }}</h2>
     <p><i>{{ description }}</i></p>
 
-    <ol>
+    <ol class="scrollable-list">
       <li *ngFor="let video of videos; let i = index">
         <a>
           <p *ngIf="i === currentVideo"><strong>{{video.name}} - {{video.artist}}</strong></p>
