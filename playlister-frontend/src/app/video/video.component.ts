@@ -16,8 +16,23 @@ export class VideoComponent implements OnInit {
   private player: YT.Player;
   private currentVideo = 0;
   private initialId = null;
-
-  playlist = 'https://open.spotify.com/user/spotifycharts/playlist/37i9dQZEVXbMDoHDwVN2tF?si=nb1Mt6RLR7yOlfzvDb9LjQ';
+  playlists = [
+    {
+      name: 'Global Top 50',
+      url: 'https://open.spotify.com/user/spotifycharts/playlist/37i9dQZEVXbMDoHDwVN2tF?si',
+      author: 'Spotify'
+    },
+    {
+      name: 'Global Viral 50',
+      url: 'https://open.spotify.com/user/spotifycharts/playlist/37i9dQZEVXbLiRSasKsNU9?si',
+      author: 'Spotify'
+    },
+    {
+      name: 'Chillin\'',
+      url: 'https://open.spotify.com/user/restyle/playlist/3vzYRfqObjSyitGFs0mKgu?si',
+      author: 'Restyle'
+    }];
+  playlist = this.playlists[0].url;
   videos = null;
   name = null;
   description = '';
@@ -62,6 +77,12 @@ export class VideoComponent implements OnInit {
   async playSelected(video) {
     this.player.loadVideoById(await this.getVideoId(video));
     this.currentVideo = this.videos.findIndex(v => v.name === video.name);
+  }
+
+  reverseOrder() {
+    const activeVideo = this.videos[this.currentVideo];
+    this.videos = this.videos.reverse();
+    this.currentVideo = this.videos.findIndex(v => v.name === activeVideo.name);
   }
 
   loadVideos() {

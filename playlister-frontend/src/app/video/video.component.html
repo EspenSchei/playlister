@@ -5,8 +5,16 @@
              [value]="playlist"
              [(ngModel)]="playlist"
              [formControl]="playlistFormControl"
-             (change)="loadVideos()">
-      <mat-hint>Spotify playlist link</mat-hint>
+             (change)="loadVideos()"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let playlist of playlists"
+                    [value]="playlist.url"
+                    (click)="loadVideos()">
+          {{playlist.name}} by {{playlist.author}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-hint>Select or paste Spotify playlist link</mat-hint>
       <mat-error *ngIf="playlistFormControl.hasError('url')">
         Please enter a <strong>valid</strong> Spotify playlist link
       </mat-error>
@@ -28,7 +36,9 @@
     </div>
     <button mat-stroked-button (click)="previousVideo()" style="margin-left: 330px">Previous</button>
     <button mat-stroked-button (click)="nextVideo()">Next</button>
-
+    <button mat-stroked-button (click)="reverseOrder()" style="float: right; margin-right: 140px; width: 120px">
+      Reverse order
+    </button>
     <h2>{{ name }}</h2>
     <p><i>{{ description }}</i></p>
 
